@@ -22,7 +22,7 @@ router.get('/get/mysongs', passport.authenticate('jwt',{session:false}), async (
 
 router.get('/get/artist/:artistId',passport.authenticate('jwt',{session:false}), async (req,res)=>{
     const artistId = req.params.artistId
-    const artist = await User.find({_id:artistId});
+    const artist = await User.findOne({_id:artistId});
     if(!artist){
         return res.status(301).json({error:'Artist does not exist'})
     }

@@ -43,7 +43,7 @@ router.post('/add/song', passport.authenticate('jwt',{session:false}), async (re
     if(!playlist){
         return res.status(304).json({error:'Playlist does not exist'});
     }
-    if(playlist.owner!=currentUser._id && !playlist.collaborators.includes(currentUser._id)){
+    if(!playlist.owner.equals(currentUser._id) && !playlist.collaborators.includes(currentUser._id)){
         return res.status(400).json({error:'Not Allowed'});
     }
     const song = await Sonf.findOne({_id:songId});
